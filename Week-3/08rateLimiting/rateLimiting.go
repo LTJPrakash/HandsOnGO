@@ -58,7 +58,7 @@ func (rl *RateLimiter) Stop() {
 func main() {
 	fmt.Println("---Rate Limiting---")
 
-	rateLimiter := NewRateLimiter(5, 1*time.Second) // Create a RateLimiter with 5 tokens per second
+	rateLimiter := NewRateLimiter(3, 1*time.Second) // Create a RateLimiter with 5 tokens per second
 
 	for i := 0; i < 10; i++ {
 		if rateLimiter.Allow() {

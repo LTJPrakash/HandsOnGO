@@ -29,7 +29,7 @@ func main() {
 	}()
 
 	// Let the ticker run for 5 ticks, then stop it
-	time.Sleep(5 * time.Second)
+	time.Sleep(6 * time.Second)
 	done <- true
 
 	// Additional delay to allow all prints to complete

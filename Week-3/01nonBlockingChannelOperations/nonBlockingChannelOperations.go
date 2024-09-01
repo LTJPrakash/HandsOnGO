@@ -20,7 +20,6 @@ func main() {
 
 	// Prepare a message to send
 	msg := "hi"
-
 	// Non-blocking send: Try to send a message into messages channel
 	select {
 	case messages <- msg:
