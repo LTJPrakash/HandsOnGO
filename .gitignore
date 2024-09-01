@@ -25,3 +25,31 @@ Thumbs.db
 
 # Environment files
 .env
+
+# Ignore Go binary files in the my-go-project directory
+/Week-4/crudOperation/bin/
+/Week-4/crudOperation/build/
+/Week-4/crudOperation/out/
+
+# Ignore Go module cache
+/Week-4/crudOperation/go/pkg/mod/
+
+# Ignore Go build output
+/Week-4/crudOperation/*.a
+/Week-4/crudOperation/*.out
+/Week-4/crudOperation/*.test
+
+# Ignore vendor directory
+/Week-4/crudOperation/vendor/
+
+# Ignore IDE and editor files
+*.idea/
+/*.vscode/
+/*.swp
+
+# Ignore OS-specific files
+*.DS_Store
+*.Thumbs.db
+
+# Ignore environment files
+/Week-4/crudOperation/.env
