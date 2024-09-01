@@ -30,7 +30,8 @@ func init() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	var connectionString = os.Getenv("MONGO_URL") // Fetch MongoDB connection string from environment variable
+
+	var connectionString = os.Getenv("MONGO_API") // Fetch MongoDB connection string from environment variable
 
 	// Create a new MongoDB client option with the connection string
 	clientOption := options.Client().ApplyURI(connectionString)
