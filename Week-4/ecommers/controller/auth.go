@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
@@ -20,7 +21,7 @@ var (
 	productCollection *mongo.Collection
 )
 
-const connectionString = "mongodb+srv://lukhidixit149:93281dixit@cluster0.38wpt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+var connectionString = os.Getenv("MONGO_URI")
 
 func init() {
 	err := godotenv.Load()

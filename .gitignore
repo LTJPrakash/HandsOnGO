@@ -12,11 +12,11 @@
 *.test
 
 # Dependency directories
-vendor/
+/vendor/
 
 # IDE and editor files
-*.idea/
-*.vscode/
+.idea/
+/.vscode/
 *.swp
 
 # OS-specific files
@@ -44,12 +44,45 @@ Thumbs.db
 
 # Ignore IDE and editor files
 *.idea/
-/*.vscode/
-/*.swp
+*.vscode/
+*.swp
 
 # Ignore OS-specific files
-*.DS_Store
-*.Thumbs.db
+.DS_Store
+Thumbs.db
 
 # Ignore environment files
 /Week-4/crudOperation/.env
+
+# React build files
+/node_modules/
+/build/
+/public/static/
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production build files
+/build
+
+# Coverage directory used by testing tools
+/coverage/
+
+# Dependency directories
+/node_modules/
+
+# Miscellaneous
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignore next.js build output
+.next/
+
+# Ignore parcel build output
+.cache/
+.parcel-cache/
+dist/
