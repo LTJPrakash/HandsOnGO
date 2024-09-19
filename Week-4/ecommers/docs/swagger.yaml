@@ -1,0 +1,255 @@
+basePath: /
+definitions:
+  model.Product:
+    properties:
+      _id:
+        type: string
+      category:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      stock:
+        type: integer
+    type: object
+  model.User:
+    description: User model for registration and login
+    properties:
+      _id:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:5000
+info:
+  contact: {}
+  description: This will be used for testing of api endpoints.
+  title: E-Commerce API in GO
+  version: "1.0"
+paths:
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a user and returns a JWT token
+      parameters:
+      - description: User data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Invalid username or password
+          schema:
+            type: string
+        "500":
+          description: Error generating token
+          schema:
+            type: string
+      summary: Login a user and return a JWT token
+      tags:
+      - User
+  /api/product/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a product by its ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product deleted successfully
+          schema:
+            type: string
+        "400":
+          description: Invalid ID format
+          schema:
+            type: string
+        "404":
+          description: Product not found
+          schema:
+            type: string
+        "500":
+          description: Error deleting product
+          schema:
+            type: string
+      summary: Delete a product
+      tags:
+      - Product
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a product by its ID
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product fetched successfully
+          schema:
+            $ref: '#/definitions/model.Product'
+        "400":
+          description: Invalid ID format
+          schema:
+            type: string
+        "404":
+          description: Product not found
+          schema:
+            type: string
+        "500":
+          description: Error fetching product
+          schema:
+            type: string
+      summary: Get a product by ID
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: Updates an existing product with the provided details
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/model.Product'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Product updated successfully
+          schema:
+            $ref: '#/definitions/model.Product'
+        "400":
+          description: Invalid ID format or request payload
+          schema:
+            type: string
+        "404":
+          description: Product not found
+          schema:
+            type: string
+        "500":
+          description: Error updating product
+          schema:
+            type: string
+      summary: Update a product
+      tags:
+      - Product
+  /api/products:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of all products
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Products fetched successfully
+          schema:
+            items:
+              $ref: '#/definitions/model.Product'
+            type: array
+        "500":
+          description: Error fetching products
+          schema:
+            type: string
+      summary: Get all products
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: Creates a new product with the provided details
+      parameters:
+      - description: Product data
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/model.Product'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Product created successfully
+          schema:
+            $ref: '#/definitions/model.Product'
+        "400":
+          description: Invalid request payload
+          schema:
+            type: string
+        "500":
+          description: Error creating product
+          schema:
+            type: string
+      summary: Create a new product
+      tags:
+      - Product
+  /api/register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a new user with username, password, and email, and hashes
+        the password
+      parameters:
+      - description: User data with username, password, and email
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User successfully created
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Invalid request payload
+          schema:
+            type: string
+        "500":
+          description: Error creating user
+          schema:
+            type: string
+      summary: Register a new user
+      tags:
+      - User
+schemes:
+- http
+swagger: "2.0"

@@ -21,27 +21,52 @@ var (
 	productCollection *mongo.Collection
 )
 
-var connectionString = os.Getenv("MONGO_URI")
-
+// run the first in file
 func init() {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
 
-	clientOption := options.Client().ApplyURI(connectionString)
-	client, err := mongo.Connect(context.TODO(), clientOption)
+	// Retrieve MongoDB connection string from environment variable
+	connectionString := os.Getenv("MONGO_URI")
+	if connectionString == "" {
+		log.Fatal("MONGO_URI is not set in the environment")
+	}
+
+	// Create a MongoDB client option
+	clientOptions := options.Client().ApplyURI(connectionString)
+
+	// Connect to MongoDB
+	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal("Failed to connect to MongoDB:", err)
 	}
 
+	// Ping the MongoDB server to verify connection
+	err = client.Ping(context.TODO(), nil)
+	if err != nil {
+		log.Fatal("Failed to ping MongoDB:", err)
+	}
+
 	fmt.Println("Connected to MongoDB")
 
+	// Initialize collections
 	userCollection = client.Database("ecommerce").Collection("users")
 	productCollection = client.Database("ecommerce").Collection("products")
 }
 
-// Register a new user
+// Register godoc
+// @Summary Register a new user
+// @Description Registers a new user with username, password, and email, and hashes the password
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param user body model.User true "User data with username, password, and email"
+// @Success 201 {object} model.User "User successfully created"
+// @Failure 400 {string} string "Invalid request payload"
+// @Failure 500 {string} string "Error creating user"
+// @Router /api/register [post]
 func Register(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
@@ -65,7 +90,17 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(user)
 }
 
-// Login a user and return a JWT token
+// Login godoc
+// @Summary Login a user and return a JWT token
+// @Description Authenticates a user and returns a JWT token
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param user body model.User true "User data"
+// @Success 200 {object} map[string]string
+// @Failure 401 {string} string "Invalid username or password"
+// @Failure 500 {string} string "Error generating token"
+// @Router /api/login [post]
 func Login(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 

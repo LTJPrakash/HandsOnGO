@@ -9,6 +9,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // u can use fetch also for api call
         const response = await axios.get(getProducts);
         setProducts(response.data.Data);
       } catch (error) {
