@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin" // Import the Gin web framework package
+	"github.com/gin-gonic/gin/binding"
 )
 
 // Define the structure for formA
@@ -20,16 +21,14 @@ type formB struct {
 func SomeHandler(c *gin.Context) {
 	objA := formA{}
 	objB := formB{}
-
-	// Attempt to bind the request body to objA
-	if errA := c.ShouldBind(&objA); errA == nil {
+	// This reads c.Request.Body and stores the result into the context.
+	if errA := c.ShouldBindBodyWith(&objA, binding.JSON); errA == nil {
 		c.String(http.StatusOK, `the body should be formA`)
-		// If objA binding is successful, respond with a message
-	} else if errB := c.ShouldBind(&objB); errB == nil {
-		// If objA binding fails, attempt to bind to objB
-		c.String(http.StatusOK, `the body should be formB`)
+		// At this time, it reuses body stored in the context.
+	} else if errB := c.ShouldBindBodyWith(&objB, binding.JSON); errB == nil {
+		c.String(http.StatusOK, `the body should be formB JSON`)
+		// And it can accepts other formats
 	} else {
-		// Handle the error if both bindings fail
 		c.String(http.StatusBadRequest, "Invalid request body")
 	}
 }

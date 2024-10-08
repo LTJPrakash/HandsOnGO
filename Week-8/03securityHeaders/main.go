@@ -11,7 +11,7 @@ func main() {
 	r := gin.Default()
 
 	// Specify the expected host (domain) that is allowed to access the server
-	expectedHost := "localhost:8080"
+	expectedHost := "localhost:5000"
 
 	// Middleware to set security headers and validate the Host header
 	r.Use(func(c *gin.Context) {

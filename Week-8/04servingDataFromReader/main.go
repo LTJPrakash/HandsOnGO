@@ -13,7 +13,7 @@ func main() {
 	// Define a GET route that fetches and serves external data
 	r.GET("/someDataFromReader", func(c *gin.Context) {
 		// Fetch data (in this case, an image) from an external source (GitHub URL)
-		response, err := http.Get("https://raw.githubusercontent.com/gin-gonic/logo/master/color.png")
+		response, err := http.Get("https://images.unsplash.com/profile-1446404465118-3a53b909cc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&cs=tinysrgb&fit=crop&h=32&w=32&s=a2f8c40e39b8dfee1534eb32acfa6bc7")
 
 		// Handle error cases: if there's an error or the response status isn't OK (200), return Service Unavailable
 		if err != nil || response.StatusCode != http.StatusOK {

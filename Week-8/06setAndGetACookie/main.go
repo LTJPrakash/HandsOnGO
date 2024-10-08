@@ -19,6 +19,7 @@ func main() {
 			// If the cookie doesn't exist, set a default value
 			cookie = "NotSet"
 			// Set a new cookie with name "gin_cookie", value "test", expiration of 3600 seconds (1 hour), and other parameters
+			// func (c *gin.Context) SetCookie(name string, value string, maxAge int, path string, domain string, secure bool, httpOnly bool)
 			c.SetCookie("gin_cookie", "test", 3600, "/", "localhost", false, true)
 		}
 
